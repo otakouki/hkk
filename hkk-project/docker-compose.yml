@@ -18,7 +18,7 @@ services:
             # 永続化するときにマウントするdir
             - ./mysql/data:/var/lib/mysql
         environment: 
-            - MYSQL_ROOT_PASSWORD=golang
+            - MYSQL_ROOT_PASSWORD=hkk_it_kaihatu
         ports:
             - "8888:3306"
 
