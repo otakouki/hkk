@@ -10,6 +10,11 @@ WORKDIR /go/src/app
 # ホストのファイルをコンテナの作業ディレクトリに移行
 ADD . /go/src/app
 
+RUN go get -u github.com/oxequa/realize \
+    # sqlを使うためのモジュール
+    && go get github.com/go-sql-driver/mysql
+CMD ["realize", "start"]
+
 RUN useradd -m --uid 1000 --groups sudo hkk \
   && echo hkk:hkk_it_kaihatu | chpasswd
 
