@@ -11,6 +11,7 @@ services:
             - mysql
 
     mysql:
+    	tty: true
         build: ./mysql/
         volumes:
             # 初期データを投入するSQLが格納されているdir
