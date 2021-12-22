@@ -39,5 +39,6 @@ class MTCNNThreading:
                 _, frame = self.cap.read()                  # キューに顔認識データ追加
                 faces = self.detector.detect_faces(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))  # 軽量化のために、RGBへ変換
                 self.q.put(faces)
+                print(faces)
             else:
                 os.system('reboot')
