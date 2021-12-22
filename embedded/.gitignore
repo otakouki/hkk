@@ -78,6 +78,13 @@ dmypy.json
 cython_debug/
 .idea/
 
+*.i
+*.ii
+*.gpu
+*.ptx
+*.cubin
+*.fatbin
+
 Thumbs.db
 Thumbs.db:encryptable
 ehthumbs.db
