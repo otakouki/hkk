@@ -29,9 +29,6 @@ def main():
             # カメラフレーム
             _, frame = cap.read()
 
-            # 顔認識結果表示
-            print(mtcnn.read())
-
             # qキーで終了
             if cv2.waitKey(1) & 0xff == ord('q'):
                 break
