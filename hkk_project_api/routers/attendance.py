@@ -20,6 +20,7 @@ router = APIRouter()
 #新規登録用のデータクラス
 class Create_attendance(BaseModel):
     uid : str
+
 dt_now = datetime.datetime.now()
 
 ###### ルーティング ######
@@ -27,7 +28,6 @@ dt_now = datetime.datetime.now()
 #出席情報取得
 @router.get("/api/attendances", tags=["attendances"])
 async def read_attendance(date: str):
-    param_date = datetime.datetime.strptime(date, '%Y-%m-%d').strftime('%Y-%m-%d')
     
     #出席情報がある人を取得
     A = s.session.query(m.Users.user_id,m.Users.name).filter(
@@ -52,7 +52,8 @@ async def read_attendance(date: str):
 #出席情報登録
 @router.post("/api/attendances", tags=["attendances"])
 async def create_attendance(data: Create_attendance):
-    result = s.session.query(m.Users.user_id).filter(m.Users.uid==data.uid).all()
+    dt = data.uid.replace(' ', '')
+    result = s.session.query(m.Users.user_id).filter(m.Users.uid==dt).all()
     #リストで返ってくるので解体
     for i in result:
         id=i.user_id
