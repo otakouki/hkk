@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">出席状態確認アプリ</string>
+    <string name="menu_item">日付選択</string>
+</resources>
