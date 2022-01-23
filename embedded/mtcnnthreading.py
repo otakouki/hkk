@@ -6,8 +6,6 @@ from mtcnn import MTCNN
 import cv2
 import os
 
-import urllib.request, urllib.error
-
 class MTCNNThreading:
 
     def __init__(self, cap):
@@ -16,7 +14,6 @@ class MTCNNThreading:
         self.q = queue.Queue(maxsize=4096)  # キュー
         self.canseled = False               # 停止判定フラグ
         self.detector = MTCNN()             # 顔認識モデル
-        self.url = 'http://localhost:8000/api/notification'
 
     # スレッド開始
     def start(self):
@@ -42,7 +39,5 @@ class MTCNNThreading:
                 _, frame = self.cap.read()                  # キューに顔認識データ追加
                 faces = self.detector.detect_faces(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))  # 軽量化のために、RGBへ変換
                 self.q.put(faces)
-                print(faces)
-                with urllib.request.urlopen(self.url) as response:
             else:
                 os.system('reboot')

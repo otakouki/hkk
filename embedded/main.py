@@ -5,11 +5,13 @@ import numpy as np
 import cv2
 import camerathreading
 import mtcnnthreading
+import urllib.request, urllib.error
 
 # OpenCV Bug Fix
 cv2.setNumThreads(0)
 
 def main():
+    url = 'http://localhost:8000/api/notification'
     try:
         # カメラ
         cap = camerathreading.CameraThreading(0)
@@ -28,6 +30,11 @@ def main():
 
             # カメラフレーム
             _, frame = cap.read()
+
+            print(mtcnn.read())
+
+            if len(mtcnn.read()) > 0:
+                with urllib.request.urlopen(url) as response:
 
             # qキーで終了
             if cv2.waitKey(1) & 0xff == ord('q'):
