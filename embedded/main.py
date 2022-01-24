@@ -5,13 +5,17 @@ import numpy as np
 import cv2
 import camerathreading
 import mtcnnthreading
+
 import urllib.request, urllib.error
+
 
 # OpenCV Bug Fix
 cv2.setNumThreads(0)
 
 def main():
+
     url = 'http://localhost:8000/api/notification'
+
     try:
         # カメラ
         cap = camerathreading.CameraThreading(0)
