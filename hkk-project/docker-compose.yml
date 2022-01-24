@@ -9,7 +9,6 @@ services:
             - ./app:/go/src/app # マウントディレクトリ
         depends_on: 
             - mysql
-
     mysql:
         build: ./mysql/
         volumes:
