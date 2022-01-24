@@ -4,8 +4,9 @@
 #include <HTTPClient.h>
 
 //接続先のSSODとパスワード 学内CampusuIOT
-const char ssid[] = "JCOM_TheA";
-const char passwd[] = "jcom10001043";
+//const char ssid[] = "CampusIoT-WiFi";
+const char ssid[] = "ECCcomp4";
+const char passwd[] = "0b8b413f2c0fa6aa90e085e9431abbf1fa1b2bd2db0ecf4ae9ce4b2e87da770c";
 const char* apiServer = "http://192.168.0.32:8000/api/notification";
 WiFiServer server(80);
 #define Trigger_Pin 17

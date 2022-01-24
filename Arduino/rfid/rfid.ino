@@ -19,6 +19,9 @@ const char passwd[] = "0b8b413f2c0fa6aa90e085e9431abbf1fa1b2bd2db0ecf4ae9ce4b2e8
 
 WiFiServer server(80);
 
+const int pinLed1 = 2;
+const int pinLed2 = 4;
+const int pinLed3 = 26;
 
 #define SS_PIN  5  // ESP32 pin GIOP5 
 #define RST_PIN 25 // ESP32 pin GIOP25
@@ -41,6 +44,8 @@ const char *host = "http://10.200.5.73:8000/api/attendances";
 
 
 void setup() {
+
+  
   Serial.begin(115200);
   SPI.begin(); // init SPI bus
   rfid.PCD_Init(); // init MFRC522
@@ -56,11 +61,17 @@ void setup() {
   Serial.println(WiFi.localIP());
 
   server.begin();
+  pinMode(pinLed1, OUTPUT);
+  pinMode(pinLed2, OUTPUT);
+  pinMode(pinLed3, OUTPUT);
 
   Serial.println("Tap an RFID/NFC tag on the RFID-RC522 reader");
 }
 
 void loop() {
+  digitalWrite(pinLed2, LOW);
+        digitalWrite(pinLed3, LOW);
+        digitalWrite(pinLed1, HIGH);
   if (rfid.PICC_IsNewCardPresent()) { // new tag is available
     if (rfid.PICC_ReadCardSerial()) { // NUID has been readed
       MFRC522::PICC_Type piccType = rfid.PICC_GetType(rfid.uid.sak);
@@ -96,6 +107,10 @@ void loop() {
 //      delay(10);
       Serial.printf("status_code=%d\r\n", status_code);
       if ( status_code == 200 ) {
+        digitalWrite(pinLed1, LOW);
+        digitalWrite(pinLed3, LOW);
+        digitalWrite(pinLed2, HIGH);
+        
         Stream* resp = http.getStreamPtr();
 
         DynamicJsonDocument json_response(255);
@@ -103,6 +118,10 @@ void loop() {
 
         serializeJson(json_response, Serial);
         Serial.println("");
+      }else {
+        digitalWrite(pinLed1, LOW);
+        digitalWrite(pinLed2, LOW);
+        digitalWrite(pinLed3, HIGH);
       }
       http.end();
 
